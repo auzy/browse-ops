@@ -1,0 +1,13 @@
+{
+  "name": "BrowseOps",
+  "version": "0.3",
+  "description": "Displays most visited websites",
+  "permissions": [
+    "history"
+  ],
+  "browser_action": {
+    "default_popup": "index.html",
+    "default_icon": "lib/images/clock.png"
+  },
+  "manifest_version": 2
+}
