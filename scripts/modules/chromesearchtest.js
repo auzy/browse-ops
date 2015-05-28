@@ -112,12 +112,21 @@ define(["./socialdatabase", "./htmlconnector", "./chartingtest"], function(socia
             };
           for (var i = 0; i < visitItems.length; i ++) {
             var shortUrl = url.substring(httpslice(url), url.indexOf("/", 9));
+            if (!shortUrl.includes('.')) { continue; }
             
-            if (!urlToCount[shortUrl]) {
-                urlToCount[shortUrl] = 0;
+            var helper = shortUrl.substring(shortUrl.indexOf('.') + 1);
+            var newUrl;
+            if (helper.includes('.')) {
+              newUrl = helper;
+            } else {
+              newUrl = shortUrl;
+            }
+            
+            if (!urlToCount[newUrl]) {
+                urlToCount[newUrl] = 0;
               }
         
-            urlToCount[shortUrl]++;
+            urlToCount[newUrl]++;
           }
           
           if (!--numRequestsOutstanding) {
@@ -143,7 +152,7 @@ define(["./socialdatabase", "./htmlconnector", "./chartingtest"], function(socia
           urlArray.push(urlname + ": " + urlnum);
         }
       
-        htmlconnector.buildPopupDom(divName, urlArray.slice(0, 10));
+        htmlconnector.buildPopupDom(divName, urlArray.slice(0, 25));
         
       };
     },

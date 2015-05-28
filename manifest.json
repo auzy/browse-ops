@@ -1,6 +1,6 @@
 {
-  "name": "BrowseOps",
-  "version": "0.3",
+  "name": "Browse-Ops",
+  "version": "0.4",
   "description": "Displays most visited websites",
   "permissions": [
     "history"
