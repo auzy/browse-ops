@@ -2,21 +2,21 @@ define(["jquery"], function($) {
   return {
     buildPopupDom: function(divName, data) {
       
-      // //COMMENTED OUT - ORGINAL**
-      var popupDiv = document.getElementById(divName);
-      //creates the list
-      var ul = document.createElement('ul');
-      popupDiv.appendChild(ul);
+      // // //COMMENTED OUT - ORGINAL**
+      // var popupDiv = document.getElementById(divName);
+      // //creates the list
+      // var ul = document.createElement('ul');
+      // popupDiv.appendChild(ul);
       
-      for (var i = 0, ie = data.length; i < ie; ++i) {
+      // for (var i = 0, ie = data.length; i < ie; ++i) {
         
-        var h = document.createElement('h');
-        h.appendChild(document.createTextNode(data[i]));
+      //   var h = document.createElement('h');
+      //   h.appendChild(document.createTextNode(data[i]));
     
-        var li = document.createElement('li');
-        li.appendChild(h);
+      //   var li = document.createElement('li');
+      //   li.appendChild(h);
     
-        ul.appendChild(li);
+      //   ul.appendChild(li);
         
       
       // document.body.style.backgroundColor = "grey";
@@ -35,7 +35,7 @@ define(["jquery"], function($) {
       //   bar.style.height= data[k][1]+"px";
       // }
 
-      //for (var i = 0, ie = data.length; i < ie; ++i) {
+      for (var i = 0, ie = data.length; i < ie; ++i) {
         var url = data[i][0];
         var visits = data[i][1];
         var iden = '#chart ' + '.n' + i;
@@ -44,7 +44,7 @@ define(["jquery"], function($) {
         $(iden).prop('title', visits)
         $(iden).children('.url').html(visits + '');
         $(iden).children('.bar').animate({'width' : len + 'px' }, 1500);
-        $(iden).children('.bar').text(url);
+        $(iden).children('.abc').text(url);
       }
 
       //$('#chart .n0').prop('title', 'Jesus');

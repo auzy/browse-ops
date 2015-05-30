@@ -1,12 +1,16 @@
-/*#greeting {*/
-/*  background-color: #F8F8F8;*/
-/*  font-family: 'Open Sans', sans-serif;*/
-/*  font-size: 24px;*/
-/*  margin: 15px;*/
-/*}*/
+body  {
+	background-color: #1583FF;
+}
+#greeting {
+  font-family: 'Arial', sans-serif;
+  font-size: 24px;
+  margin: 15px;
+  text-align: center;
+  margin-bottom: 25px;
+}
 
 #chart {
-	width: 209px;
+	width: 179px;
 	list-style: none;
 	/*border-left: solid 1px #666;
 	border-bottom: solid 1px #666;*/
@@ -17,18 +21,19 @@
 	height: 10px;
 }
 
-#chart li .percent {
+#chart li .url {
 	width: 30px;
 	position: absolute;
 	top: 0;
-	right: -40px;
+	right: -75px;
 	text-align: right;
+	padding-bottom: 5px;
 }
 
 #chart li {
 	position: relative;
 	display: block;
-	width: 204px;
+	width: 174px;
 	margin: 0 0 20px 5px;
 	text-align: left;
 	margin-left: -30px;
@@ -36,12 +41,16 @@
 
 #chart li .bar {
 	width: 10px;
-    border: 1px solid #57B1FF;
+    border: 1.5px solid #57B1FF;
     background: white;
-    height: 20px;
+    height: 12px;
 }
 
-#chart li .
+#chart li .abc {
+	bottom: 10px;
+	position: absolute;
+}
+
 
 /*.n1 .bar {
 	background: blue;

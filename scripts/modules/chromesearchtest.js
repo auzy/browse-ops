@@ -15,10 +15,11 @@ define(["./socialdatabase", "./htmlconnector", "./chartingtest"], function(socia
       // Track the number of callbacks from chrome.history.getVisits()
       // that we expect to get.  When it reaches zero, we have all results.
       var numRequestsOutstanding = 0;
+      var maxResults = 100000;
     
       chrome.history.search({
           'text': '',
-          'maxResults': 100000, // Return every history item....
+          'maxResults': maxResults, // Return every history item....
           'startTime': todayms  // that was accessed less than one week ago.
         },
         function(historyItems) {
