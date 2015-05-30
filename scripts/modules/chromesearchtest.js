@@ -6,8 +6,11 @@ define(["./socialdatabase", "./htmlconnector", "./chartingtest"], function(socia
     buildTypedUrlList: function(divName, process) {
       // To look for history items visited in the last week,
       // subtract a week of microseconds from the current time.
-      var microsecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
-      var oneWeekAgo = (new Date).getTime() - microsecondsPerWeek;
+      var microsecondsPerWeek = 1000 * 60;
+      //Today
+      //WE NEED TO CHANGE IT SO THAT THE DATE CONTINUES TO SWITCH
+      var today = new Date(2015,4,29,0,0,0,0);
+      var todayms = today.getTime();
     
       // Track the number of callbacks from chrome.history.getVisits()
       // that we expect to get.  When it reaches zero, we have all results.
@@ -15,8 +18,8 @@ define(["./socialdatabase", "./htmlconnector", "./chartingtest"], function(socia
     
       chrome.history.search({
           'text': '',
-          'maxResults': 1000, // Return every history item....
-          'startTime': oneWeekAgo  // that was accessed less than one week ago.
+          'maxResults': 100000, // Return every history item....
+          'startTime': todayms  // that was accessed less than one week ago.
         },
         function(historyItems) {
           // For each history item, get details on all visits.
@@ -76,8 +79,7 @@ define(["./socialdatabase", "./htmlconnector", "./chartingtest"], function(socia
           
         },
         duration: function(url, visitItems) {
-          //determines what index number to use depending on whether the url is
-          //http or https
+          //Making changes for duration in order to test link count
           var httpslice = function(url) {
               if (url.includes('http://')) {
                 return 7;
@@ -86,15 +88,23 @@ define(["./socialdatabase", "./htmlconnector", "./chartingtest"], function(socia
                 return 8;
               }
             };
-          for (var i = 0; i < visitItems.length; i ++) {
+          var shortUrl = url.substring(httpslice(url), url.indexOf("/", 9));
             
-            var shortUrl = url.substring(httpslice(url), url.indexOf("/", 9));
+            if (shortUrl.includes('.')) {
             
-            if (!urlToCount[shortUrl]) {
-                urlToCount[shortUrl] = 0;
+              var helper = shortUrl.substring(shortUrl.indexOf('.') + 1);
+              var newUrl;
+              if (helper.includes('.')) {
+                newUrl = helper;
+              } else {
+                newUrl = shortUrl;
               }
-        
-            urlToCount[shortUrl] += visitItems[i].visitTime;
+              
+              if (!urlToCount[newUrl]) {
+                  urlToCount[newUrl] = 0;
+                }
+          
+              urlToCount[newUrl]++;
           }
           
           if (!--numRequestsOutstanding) {
@@ -144,15 +154,15 @@ define(["./socialdatabase", "./htmlconnector", "./chartingtest"], function(socia
           sortable.sort(function(a, b) { return b[1] - a[1]; });
         }
         
-        //Replacing urlArray
-        var urlArray = [];
-        for (var i = 0; i < sortable.length; i++) {
-          var urlname = sortable[i][0];
-          var urlnum = sortable[i][1];
-          urlArray.push(urlname + ": " + urlnum);
-        }
+        //Changing Urlarray ***
+        // var urlArray = [];
+        // for (var i = 0; i < sortable.length; i++) {
+        //   var urlname = sortable[i][0];
+        //   var urlnum = sortable[i][1];
+        //   urlArray.push(urlname + ": " + urlnum);
+        // }
       
-        htmlconnector.buildPopupDom(divName, urlArray.slice(0, 25));
+        htmlconnector.buildPopupDom(divName, sortable.slice(0, 10));
         
       };
     },

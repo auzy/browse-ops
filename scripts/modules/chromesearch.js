@@ -1,5 +1,8 @@
-define(["./socialdatabase", "./htmlconnector", "./analysis"], function(socialdatabase, htmlconnector, analysis) {
+define(["./socialdatabase", "./htmlconnector", "./chartingtest"], function(socialdatabase, htmlconnector, chartingtest) {
   return {
+    //change buildTypedUrlList 
+    //buildTypedUrlList: function(divName) {**
+    //new
     buildTypedUrlList: function(divName, process) {
       // To look for history items visited in the last week,
       // subtract a week of microseconds from the current time.
@@ -35,7 +38,6 @@ define(["./socialdatabase", "./htmlconnector", "./analysis"], function(socialdat
             onAllVisitsProcessed();
           }
         });
-    
     
       // urlToCount is an helper object to create a local variable in order to have
       // access to the object here
@@ -110,12 +112,21 @@ define(["./socialdatabase", "./htmlconnector", "./analysis"], function(socialdat
             };
           for (var i = 0; i < visitItems.length; i ++) {
             var shortUrl = url.substring(httpslice(url), url.indexOf("/", 9));
+            if (!shortUrl.includes('.')) { continue; }
             
-            if (!urlToCount[shortUrl]) {
-                urlToCount[shortUrl] = 0;
+            var helper = shortUrl.substring(shortUrl.indexOf('.') + 1);
+            var newUrl;
+            if (helper.includes('.')) {
+              newUrl = helper;
+            } else {
+              newUrl = shortUrl;
+            }
+            
+            if (!urlToCount[newUrl]) {
+                urlToCount[newUrl] = 0;
               }
         
-            urlToCount[shortUrl]++;
+            urlToCount[newUrl]++;
           }
           
           if (!--numRequestsOutstanding) {
@@ -133,18 +144,22 @@ define(["./socialdatabase", "./htmlconnector", "./analysis"], function(socialdat
           sortable.sort(function(a, b) { return b[1] - a[1]; });
         }
         
+        //Replacing urlArray
         var urlArray = [];
         for (var i = 0; i < sortable.length; i++) {
           var urlname = sortable[i][0];
           var urlnum = sortable[i][1];
           urlArray.push(urlname + ": " + urlnum);
         }
-        
-      htmlconnector.buildPopupDom(divName, urlArray.slice(0, 10));
       
+        htmlconnector.buildPopupDom(divName, urlArray.slice(0, 25));
+        
       };
     },
-    //DO NOT CHANGE - GOOD COPY
+    
+    hello: function() {
+      return "hello";
+    }
   };
 });
 //DO NOT TOUCH
