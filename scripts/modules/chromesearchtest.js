@@ -1,17 +1,31 @@
-define(["./socialdatabase", "./htmlconnector", "./chartingtest"], function(socialdatabase, htmlconnector, chartingtest) {
+define(["./trackingurls", "./htmlconnector"], function(trackingurls, htmlconnector) {
   return {
-    //change buildTypedUrlList 
-    //buildTypedUrlList: function(divName) {**
-    //new
-    buildTypedUrlList: function(divName, process) {
-      // To look for history items visited in the last week,
-      // subtract a week of microseconds from the current time.
-      var microsecondsPerWeek = 1000 * 60;
-      //Today
-      //WE NEED TO CHANGE IT SO THAT THE DATE CONTINUES TO SWITCH
-      var today = new Date(2015,4,29,0,0,0,0);
-      var todayms = today.getTime();
-    
+    retrieveHistory: function(divName, process) {
+      
+      //Creates a new Date object with the current date
+      //var today = new Date();
+      //Set the time to starting at 00:00
+      //today.setHours(0,0,0);
+
+      //Creates a date array to retrieve the respective ms for each of the past seven days
+      //Current date is at index 0, and date - 6 days is at index 6
+      var getDates = function() {
+        var day = new Date();
+        day.setHours(0,0,0);
+
+        var dateArray = [];
+        var datems = day.getTime();
+        dateArray[0] = datems;
+
+        for (var j = 1; j < 7; j++) {
+          day.setHours(day.getHours() - 24);
+          dateArray[j] = day.getTime();
+        }
+
+        return dateArray; }
+
+      var dates = getDates();
+
       // Track the number of callbacks from chrome.history.getVisits()
       // that we expect to get.  When it reaches zero, we have all results.
       var numRequestsOutstanding = 0;
@@ -20,18 +34,16 @@ define(["./socialdatabase", "./htmlconnector", "./chartingtest"], function(socia
       chrome.history.search({
           'text': '',
           'maxResults': maxResults, // Return every history item....
-          'startTime': todayms  // that was accessed less than one week ago.
+          'startTime': dates[0]  // that was accessed less than one week ago.
         },
         function(historyItems) {
-          // For each history item, get details on all visits.
+          
           for (var i = 0; i < historyItems.length; ++i) {
+            
             var url = historyItems[i].url;
             
             var processVisitsWithUrl = function(url, process) {
-              // We need the url of the visited item to process the visit.
-              // Use a closure to bind the  url into the callback's args.
               return function(visitItems) {
-                //changing processVisits function - original
                 processVisits[process](url, visitItems);
               };
             };
@@ -68,7 +80,7 @@ define(["./socialdatabase", "./htmlconnector", "./chartingtest"], function(socia
             }
             return "other";
           };
-          var sd = socialdatabase.data;
+          var sd = trackingurls.data;
           if (!urlToCount[sortSM(url, sd)]) {
               urlToCount[sortSM(url, sd)] = 0;
             }
@@ -76,11 +88,8 @@ define(["./socialdatabase", "./htmlconnector", "./chartingtest"], function(socia
             
           if (!--numRequestsOutstanding) {
             onAllVisitsProcessed();
-          }
-          
-        },
-        duration: function(url, visitItems) {
-          //Making changes for duration in order to test link count
+          }},
+        uniquevisits: function(url, visitItems) {
           var httpslice = function(url) {
               if (url.includes('http://')) {
                 return 7;
@@ -106,38 +115,6 @@ define(["./socialdatabase", "./htmlconnector", "./chartingtest"], function(socia
                 }
           
               urlToCount[newUrl]++;
-          }
-          
-          if (!--numRequestsOutstanding) {
-            onAllVisitsProcessed();
-          }
-        },
-        uniquevisits: function(url, visitItems) {
-          var httpslice = function(url) {
-              if (url.includes('http://')) {
-                return 7;
-              }
-              if (url.includes('https://')) {
-                return 8;
-              }
-            };
-          for (var i = 0; i < visitItems.length; i ++) {
-            var shortUrl = url.substring(httpslice(url), url.indexOf("/", 9));
-            if (!shortUrl.includes('.')) { continue; }
-            
-            var helper = shortUrl.substring(shortUrl.indexOf('.') + 1);
-            var newUrl;
-            if (helper.includes('.')) {
-              newUrl = helper;
-            } else {
-              newUrl = shortUrl;
-            }
-            
-            if (!urlToCount[newUrl]) {
-                urlToCount[newUrl] = 0;
-              }
-        
-            urlToCount[newUrl]++;
           }
           
           if (!--numRequestsOutstanding) {

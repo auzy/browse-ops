@@ -1,9 +1,7 @@
-require(["modules/chromesearchtest", "modules/chartingtest", "jquery"], 
-        function (chromesearchtest, chartingtest, $) {
+require(["modules/chromesearchtest", "jquery"], 
+        function (chromesearchtest, $) {
           
-  
-  chromesearchtest.buildTypedUrlList("header", "duration");
-  //chartingtest().link('chart_div', 'BarChart');
+  chromesearchtest.retrieveHistory("header", "uniquevisits");
   
 });
 
