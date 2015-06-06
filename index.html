@@ -5,7 +5,7 @@
   <script type="text/javascript" src 'self' ="https://www.google.com/jsapi"></script>
   <title>BrowseOps</title>
   <style>
-      body {min-width:270px; min-height: 400px;}
+      body {min-width:270px; min-height: 400px;} /*regular width 270px height 400 px */
   </style>
   <link rel="stylesheet" href="styles.css">
   
@@ -14,8 +14,153 @@
 
 <body>
   <h2 id='greeting'>BrowseOps</h2>
-  <div id="header"></div>
-  <section id="wrapper">
+  <!-- <div id="header"></div> -->
+  <h id='test1'></h>
+  <h id='test2'></h>
+  <h id='test3'></h>
+
+  <div id = 'tester'></div>
+  
+  <div id="mainpiechartdiv"></div>
+
+  <div class = "pie middle" id = "content">
+    <p>&nbsp;</p>
+    <p class = display>Top Ten</p>
+    <p>&nbsp;</p>
+    <p class = display>Daily Visits</p>
+  </div>
+
+  <div id = 'wrapper'>
+    <ul id="chart">
+      <li id="n0">
+          <ul id="chart">
+            <li class="inner">
+              <h class = "abc"></h>
+              <span class="bar" id = '0'></span>
+              <span class="nov" id = 'nov0'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '1'></span>
+              <span class="nov" id = 'nov1'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '2'></span>
+              <span class="nov" id = 'nov2'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '3'></span>
+              <span class="nov" id = 'nov3'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '4'></span>
+              <span class="nov" id = 'nov4'></span>
+            </li>
+          </ul>
+      </li>
+      <li id="n1">
+          <ul id="chart">
+            <li class="inner">
+              <h class = "abc"></h>
+              <span class="bar" id = '0'></span>
+              <span class="nov" id = 'nov0'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '1'></span>
+              <span class="nov" id = 'nov1'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '2'></span>
+              <span class="nov" id = 'nov2'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '3'></span>
+              <span class="nov" id = 'nov3'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '4'></span>
+              <span class="nov" id = 'nov4'></span>
+            </li>
+          </ul>
+      </li>
+      <li id="n2">
+          <ul id="chart">
+            <li class="inner">
+              <h class = "abc"></h>
+              <span class="bar" id = '0'></span>
+              <span class="nov" id = 'nov0'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '1'></span>
+              <span class="nov" id = 'nov1'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '2'></span>
+              <span class="nov" id = 'nov2'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '3'></span>
+              <span class="nov" id = 'nov3'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '4'></span>
+              <span class="nov" id = 'nov4'></span>
+            </li>
+          </ul>
+      </li>
+      <li id="n3">
+          <ul id="chart">
+            <li class="inner">
+              <h class = "abc"></h>
+              <span class="bar" id = '0'></span>
+              <span class="nov" id = 'nov0'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '1'></span>
+              <span class="nov" id = 'nov1'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '2'></span>
+              <span class="nov" id = 'nov2'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '3'></span>
+              <span class="nov" id = 'nov3'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '4'></span>
+              <span class="nov" id = 'nov4'></span>
+            </li>
+          </ul>
+      </li>
+      <li id="n4">
+          <ul id="chart">
+            <li class="inner">
+              <h class = "abc"></h>
+              <span class="bar" id = '0'></span>
+              <span class="nov" id = 'nov0'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '1'></span>
+              <span class="nov" id = 'nov1'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '2'></span>
+              <span class="nov" id = 'nov2'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '3'></span>
+              <span class="nov" id = 'nov3'></span>
+            </li>
+            <li class="inner">
+              <span class="bar" id = '4'></span>
+              <span class="nov" id = 'nov4'></span>
+            </li>
+          </ul>
+      </li>
+    </ul>
+  </div>
+
+  <!-- <div id="wrapper">
          <ul id="chart">
             <li class="n0">
                <h class = "abc"></h>
@@ -68,9 +213,7 @@
                <span class="url"></span>
             </li>
          </ul>
-      </section>
-
-
+      </div> -->
 
   <script data-main="scripts/main" src="lib/require.js"></script>
 </body>

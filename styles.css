@@ -7,10 +7,18 @@ body  {
   margin: 15px;
   text-align: center;
   margin-bottom: 25px;
+  color: black;
+  background-color: white;
+  background-size: 25%;
+  font-color: black;
+}
+
+#wrapper {
+    padding-top: 250px;
 }
 
 #chart {
-	width: 179px;
+	width: 189px;
 	list-style: none;
 	/*border-left: solid 1px #666;
 	border-bottom: solid 1px #666;*/
@@ -18,14 +26,20 @@ body  {
 }
 
 #chart li, #chart li span {
-	height: 10px;
+    /*height: 10px;*/
+	height: 100px;
 }
 
-#chart li .url {
+#chart li .inner, #chart li span {
+    /*height: 10px;*/
+    height: 1px;
+}
+
+#chart li .nov {
 	width: 30px;
 	position: absolute;
 	top: 0;
-	right: -75px;
+	right: -55px;
 	text-align: right;
 	padding-bottom: 5px;
 }
@@ -33,43 +47,264 @@ body  {
 #chart li {
 	position: relative;
 	display: block;
-	width: 174px;
+	width: 184px;
 	margin: 0 0 20px 5px;
 	text-align: left;
 	margin-left: -30px;
+}
+
+#chart li .inner{
+    position: relative;
+    display: block;
+    width: 184px;
+    /*margin: 0 0 20px 5px;*/
+    margin: 0 0 15px 5px;
+    text-align: left;
+    margin-left: -30px;
 }
 
 #chart li .bar {
 	width: 10px;
     border: 1.5px solid #57B1FF;
     background: white;
-    height: 12px;
+    height: 8px;
+    float:left;
 }
 
 #chart li .abc {
 	bottom: 10px;
 	position: absolute;
+    font-weight: bold;
+    
+
 }
 
-
-/*.n1 .bar {
-	background: blue;
+#chart #inner {
+    position: relative;
+    display: block;
+    width: 174px;
+    margin: 0 0 0px 0px;
+    text-align: left;
+    margin-left: -30px;
 }
+/* Pie Chart CSS */
+/* 
+  make each pie piece a rectangle twice as high as it is wide.
+  move the transform origin to the middle of the left side.
+  Also ensure that overflow is set to hidden.
+*/
+  .pie {
+        position:absolute;
+        width:100px;
+        height:200px;
+        overflow:hidden;
+        left:150px;
+        -webkit-transform-origin:left center;
+        
+    }
+/*
+  unless the piece represents more than 50% of the whole chart.
+  then make it a square, and ensure the transform origin is
+  back in the center.
 
-.n2 .bar {
-	background: blue;
+  NOTE: since this is only ever a single piece, you could
+  move this to a piece specific rule and remove the extra class
+*/
+    .pie.big {
+        width:200px;
+        height:200px;
+        left:50px;
+        -webkit-transform-origin:center center;
+        transform-origin:center center;
+    }
+/*
+  this is the actual visible part of the pie. 
+  Give it the same dimensions as the regular piece.
+  Use border radius make it a half circle.
+  move transform origin to the middle of the right side.
+  Push it out to the left of the containing box.
+*/
+    .pie:BEFORE {
+        content:"";
+        position:absolute;
+        width:100px;
+        height:200px;
+        left:-100px;
+        border-radius:100px 0 0 100px;
+        -webkit-transform-origin:right center;
+        transform-origin:right center;
+        
+    }
+ /* if it's part of a big piece, bring it back into the square */
+    .pie.big:BEFORE {
+        left:0px;
+    }
+/* 
+  big pieces will also need a second semicircle, pointed in the
+  opposite direction to hide the first part behind.
+*/
+    .pie.big:AFTER {
+        content:"";
+        position:absolute;
+        width:100px;
+        height:200px;
+        left:100px;
+        border-radius:0 100px 100px 0;
+    }
+/*
+  add colour to each piece.
+*/
+    .pie:nth-of-type(1):BEFORE,
+    .pie:nth-of-type(1):AFTER {
+        background-color:blue; 
+    }
+    .pie:nth-of-type(2):AFTER,
+    .pie:nth-of-type(2):BEFORE {
+        background-color:navy;
+    }
+    .pie:nth-of-type(3):AFTER,
+    .pie:nth-of-type(3):BEFORE {
+        background-color:blue;   
+    }
+    .pie:nth-of-type(4):AFTER,
+    .pie:nth-of-type(4):BEFORE {
+        background-color:navy;    
+    }
+    .pie:nth-of-type(5):AFTER,
+    .pie:nth-of-type(5):BEFORE {
+        background-color:blue;    
+    }
+
+    .pie:nth-of-type(6):BEFORE,
+    .pie:nth-of-type(6):AFTER {
+        background-color:navy;  
+    }
+    .pie:nth-of-type(7):AFTER,
+    .pie:nth-of-type(7):BEFORE {
+        background-color:blue; 
+    }
+    .pie:nth-of-type(8):AFTER,
+    .pie:nth-of-type(8):BEFORE {
+        background-color:navy;   
+    }
+    .pie:nth-of-type(9):AFTER,
+    .pie:nth-of-type(9):BEFORE {
+        background-color:blue;    
+    }
+
+    .pie:nth-of-type(10):AFTER,
+    .pie:nth-of-type(10):BEFORE {
+        background-color:navy;    
+    }
+
+    
+/*
+  now rotate each piece based on their cumulative starting
+  position
+*/
+	
+   	/*#pie1 { 
+        -webkit-transform: rotate(30deg); 
+    }
+    #pie2 {
+        -webkit-transform: rotate(60deg);
+    }
+    #pie3 {
+        -webkit-transform: rotate(100deg); 
+    }
+    #pie4 {
+        -webkit-transform: rotate(150deg);
+    }
+    #pie5 {
+        -webkit-transform: rotate(160deg);
+    }
+    #pie6 {
+        -webkit-transform: rotate(185deg); 
+    }
+    #pie7 {
+        -webkit-transform: rotate(200deg); 
+    }
+    #pie8 {
+        -webkit-transform: rotate(300deg); 
+    }
+    #pie9 {
+        -webkit-transform: rotate(305deg); 
+    }*/
+/*
+  and rotate the amount of the pie that's showing.
+
+  NOTE: add an extra degree to all but the final piece, 
+  to fill in unsightly gaps.
+*/
+	/*#pie0:before {
+        -webkit-transform: rotate(1deg);
+    }
+    #pie1:before {
+        -webkit-transform: rotate(1deg);
+    }
+    #pie2:before {
+        -webkit-transform: rotate(41deg);
+    }
+    #pie3:before {
+        -webkit-transform: rotate(51deg);
+    }
+    #pie4:before {
+        -webkit-transform: rotate(11deg);
+    }
+    #pie5:before {
+        -webkit-transform: rotate(26deg);
+    }
+    #pie6:before {
+        -webkit-transform: rotate(16deg);
+    }
+    #pie7:before {
+        -webkit-transform: rotate(101deg); 
+    }
+    #pie8:before {
+        -webkit-transform: rotate(6deg);
+    }*/
+    /*#pie9:before {
+        -webkit-transform: rotate(150deg); 
+    }*/
+
+/*
+NOTE: you could also apply custom classes (i.e. .s0 .v30)
+but if the CSS3 attr() function proposal ever gets implemented,
+then all the above custom piece rules could be replaced with
+the following:
+
+.pie[data-start] {
+   transform:rotate(attr(data-start,deg,0);
 }
-
-.n3 .bar {
-	background: yellow;
+.pie[data-value]:BEFORE {
+   transform:rotate(attr(data-value,deg,0);
 }
+*/
 
-.n4 .bar {
-	background: purple;
-}
+.pie.middle {
+        width: 150px;
+        height: 150px;
+        left:75px;
+        top:93px;
+        -webkit-transform-origin:center center;
+        -webkit-border-radius: 75px; 
+        background-color: white;
+        text-align: center;
+    }
 
-.n5 .bar {
-	background: orange;
+/*.pie.middle:BEFORE {
+        left:0px;
+    }
+
+.pie.middle:AFTER {
+    content:"";
+    position:absolute;
+    width:50px;
+    height:200px;
+    left:100px;
+    border-radius:0 100px 100px 0;
 }*/
 
-
+.display {
+    font-weight: bolder;
+}
